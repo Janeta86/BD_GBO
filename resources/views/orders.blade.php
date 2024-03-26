@@ -1,9 +1,3 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Orders List</title>
-</head>
-<body>
 <h2>{{$orders ? "Список заказов": 'Неверный ID заказа' }}</h2>
 @if($orders)
     <table border="1">
@@ -31,5 +25,5 @@
         @endforeach
     </table>
 @endif
-</body>
-</html>
+{{ $orders->links() }}
+
