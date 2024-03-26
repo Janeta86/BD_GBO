@@ -14,4 +14,6 @@ class detail extends Model
         return $this->belongsToMany(order::class, 'orders_details', 'id_details', 'id_orders')->
         withPivot('quantity');
     }
+
+
 }

@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreign('id_details')->references('id')->on('details');
 
             $table->Integer('quantity');
+
+            $table->softDeletes();
         });
     }
 

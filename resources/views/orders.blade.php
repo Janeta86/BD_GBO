@@ -25,6 +25,8 @@
                         <td>{{$order->car}}</td>
                         <td>{{$order->status}}</td>
                         <td>{{$order->id_executer}}</td>
+                        <td><a href="{{url('orders/destroy/'.$order->id)}}">Удалить</a>
+                        <a href="{{url('orders/edit/'.$order->id)}}">Редактировать</a></td>
                     </tr>
         @endforeach
     </table>
