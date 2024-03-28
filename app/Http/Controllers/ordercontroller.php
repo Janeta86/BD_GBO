@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ordercontroller extends Controller
 {
@@ -25,7 +26,7 @@ class ordercontroller extends Controller
     public function create()
     {
         return view('order_create', [
-            'orders'=> Order::all()
+            'orders' => Order::all()
         ]);
     }
 
@@ -87,7 +88,7 @@ class ordercontroller extends Controller
             'comment' => 'string',
             'car' => 'required',
         ]);
-        $user=User::all()->where('id',$id)->first();
+        $user = User::all()->where('id', $id)->first();
         $user->name = $validated['name'];
         $user->family = $validated['family'];
         $user->email = $validated['email'];
@@ -95,7 +96,7 @@ class ordercontroller extends Controller
         $user->comment = $validated['comment'];
         $user->save();
 
-        $order=Order::all()->where('id',$id)->first();
+        $order = Order::all()->where('id', $id)->first();
         $order->car = $validated['car'];
         $order->save();
         return redirect('/orders');
@@ -103,10 +104,14 @@ class ordercontroller extends Controller
 
     public function destroy($id)
     {
+        if (!Gate::allows('destroy-order', Order::find($id))) {
+            return redirect('/error')->with(['message' => 'У вас нет разрешения удалять заказ c id = ' . $id]);
+        }
         $order = Order::find($id);
         $order->delete();
         return redirect('/orders');
+
+
     }
 }
-
 

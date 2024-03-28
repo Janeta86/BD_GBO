@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->string('comment');
+            $table->string('password');
             $table->string('specialization');
             $table->boolean('Is_admin');
             $table->boolean('Is_master');
