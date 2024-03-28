@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
-use App\User;
+use App\Models\order;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +24,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::defaultView('pagination::default');
+        Gate::define('destroy-order', function (User $user){
+             return $user->Is_admin === true ;
+        });
     }
 }
