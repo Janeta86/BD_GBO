@@ -29,7 +29,7 @@ class order extends Model
     {
         return $this->belongsTo(User::class, 'id_executor');
     }
-    protected $fillable = ['name', 'id_user', 'family', 'Email', 'comment', 'car',];
+    protected $fillable = ['id', 'name', 'id_user', 'family', 'Email', 'comment', 'car',];
 
 }
 

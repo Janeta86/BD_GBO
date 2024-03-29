@@ -43,13 +43,18 @@
             @endif
         </ul>
     </nav>
-    Элементов на странице:
-    <form method="get" action="{{url('orders')}}">
-        <select name="perpage">
-            <option value="2" @if($paginator->perPage()==2) selected @endif>2</option>
-            <option value="3" @if($paginator->perPage()==3) selected @endif>3</option>
-            <option value="4" @if($paginator->perPage()==4) selected @endif>4</option>
-        </select>
-        <input type="submit" value="Изменить">
-    </form>
+
+    <div class="d-flex justify-content-auto mt-3">
+        <label for="perpage" class="mr-2" style="margin: 5px">Количество элементов<br>на странице:</label>
+        <form method="get" action="{{ url('orders') }}" class="d-flex align-items-center">
+
+            <select name="perpage" id="perpage" class="form-control mr-2" >
+                <option value="2" @if($paginator->perPage()==2) selected @endif>2</option>
+                <option value="3" @if($paginator->perPage()==3) selected @endif>3</option>
+                <option value="4" @if($paginator->perPage()==4) selected @endif>4</option>
+            </select>
+            <button type="submit" class="btn btn-primary" style="margin: 5px">Изменить</button>
+        </form>
+    </div>
+
 @endif

@@ -1,10 +1,12 @@
+@extends('layout')
+@section('content')
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Orders List</title>
 </head>
 <body>
-<h2>{{$orderss ? "Список заказов": 'Неверный ID заказа' }}</h2>
+<h2>{{$orderss ? "Список заказов1": 'Неверный ID заказа' }}</h2>
     <table border="1">
         <thead>
         <td>id</td>
@@ -29,3 +31,4 @@
     </table>
 </body>
 </html>
+@endsection

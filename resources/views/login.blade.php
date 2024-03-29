@@ -1,41 +1,72 @@
+@extends('layout')
+
+@section('content')
     @if(!Auth::user())
-        <style> .is-invalid {color: red;} </style>
-        <div class="container mt-4" style="padding: 10%;">
+        <style>
+            .is-invalid {
+                color: red;
+            }
+        </style>
+        <div class="container mt-4" style="padding: 15%;">
             <h2 style="text-align: center; color:darkgray">Авторизация</h2>
-            <div class="form-background">
-                <form class="d-flex" method="post" action={{url('auth')}}>
+            <div class="form-background d-flex justify-content-center">
+                <form class="d-flex flex-column" method="post" action={{url('auth')}}>
                     @csrf
 
-                    <div style="text-align: center;">
-                        <input class="form-control me-2" type="text" placeholder="Логин" name="email" aria-label="Логин" value="{{old('email')}}"/>
+                    <div class="mb-3">
+                        <input class="form-control w-auto" type="text" placeholder="Логин" name="email" value="{{old('email')}}"/>
                         @error('email')
-                        <div class="is-invalid">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <br>
-                    <div style="text-align: center;">
-                        <input class="form-control me-2" type="password" placeholder="Пароль" name="password" aria-label="Пароль" value="{{old('password')}}"/>
-                            @error('password')
-                        <div class="is-invalid">{{ $message }}</div>
+                    <div class="mb-3">
+                        <input class="form-control w-auto" type="password" placeholder="Пароль" name="password" id="password" >
+                        @error('password')
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <br>
-                    <div style="text-align: center;">
-                        <button class="btn btn-outline-success" type="submit">Войти</button>
-                    </div>
+
+                    <button type="submit" class="btn btn-outline-success">Войти</button>
                 </form>
             </div>
         </div>
+
     @else
+        <style>
+            .user-info {
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 10px;
+                font-size: 20px;
+            }
+
+            .user-name {
+                font-size: 20px;
+                font-weight: bold;
+                color: black;
+            }
+
+            .user-email,
+            .user-id {
+                font-size: 20px;
+                color: black;
+            }
+        </style>
         <ul class="navbar-nav">
             <div class="logout">
                 <a class="nav-link active" href="/login">
-                    <i class="fa fa-user" style="font-size:20px;colour:white;"></i>
-                    <span>Здравствуйте,</span>{{Auth::user()->name}}</a>
-                {{-- <h2>Здравствуйте,{{Auth::user()->name}}</h2> --}}
-                <a class="btn btn-outline-success my-2 my-sm-0" href="{{url('logout')}}">Выйти</a>
+                    <i class="fa fa-user" style="padding: 130px; color: black"></i>
+                    <div class="user-info" style="color: black">
+                        <span >Здравствуйте,</span>
+                        <strong class="user-name">{{Auth::user()->name}} {{Auth::user()->family}}</strong>
+                        <div>
+                            <p>Email: <span class="user-email">{{ Auth::user()->email }}</span></p>
+{{--                            <p>ID:<span class="user-id">{{ Auth::user()->id }}</span></p>--}}
+                        </div>
+                    </div>
+                </a>
             </div>
         </ul>
     @endif
-
+@endsection
