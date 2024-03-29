@@ -27,5 +27,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('destroy-order', function (User $user){
              return $user->Is_admin === true ;
         });
+
+        Gate::define('order_edit', function (User $user){
+            return $user->Is_admin === true;
+        });
+
     }
 }

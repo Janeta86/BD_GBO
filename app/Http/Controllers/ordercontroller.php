@@ -71,6 +71,9 @@ class ordercontroller extends Controller
 
     public function edit(string $id)
     {
+        if (Gate::denies('order_edit')) {
+            return redirect('/orders')->withError('У вас нет разрешения редактировать заказы');
+        }
 
         return view('order_edit', [
             'user' => User::where('id', $id)->first(),
@@ -80,6 +83,10 @@ class ordercontroller extends Controller
 
     public function update(Request $request, $id)
     {
+        if (Gate::denies('order_edit')) {
+            return redirect('/orders')->withError('У вас нет разрешения редактировать заказы');
+        }
+
         $validated = $request->validate([
             'name' => 'required',
             'family' => 'required',
@@ -99,17 +106,17 @@ class ordercontroller extends Controller
         $order = Order::all()->where('id', $id)->first();
         $order->car = $validated['car'];
         $order->save();
-        return redirect('/orders');
+        return redirect('/orders')->withError(['success'=> 'Заказ успешно изменен',]);
     }
 
     public function destroy($id)
     {
         if (!Gate::allows('destroy-order', Order::find($id))) {
-            return redirect('/error')->with(['message' => 'У вас нет разрешения удалять заказ c id = ' . $id]);
+            return redirect('/orders')->withError('У вас нет разрешения удалять заказ');
         }
         $order = Order::find($id);
         $order->delete();
-        return redirect('/orders');
+        return redirect('/orders')->with(['success'=> 'Заказ успешно удален',]);
 
 
     }

@@ -1,3 +1,5 @@
+@extends('layout')
+@section('content')
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,3 +25,4 @@
 </table>
 </body>
 </html>
+@endsection
